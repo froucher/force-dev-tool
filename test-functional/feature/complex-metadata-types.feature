@@ -8,8 +8,8 @@ Feature: Handle Properties of Complex Metadata Types
       And the change set can be deployed correctly
 
     Examples:
-      | parent       | child         | content                                     | expected                                          |
-      | CustomObject | CustomField   | data/complex-metadata/customField-added     | data/complex-metadata/customField-added/expected     |
+      | parent       | child         | content                                | expected                                        |
+      | CustomObject | CustomField   | complex-metadata/customField-added     | complex-metadata/customField-added/expected     |
 
   Scenario Outline: Child metadata are removed
     Given a list of child metadata which "<content>" has been removed in a git repository
@@ -19,8 +19,8 @@ Feature: Handle Properties of Complex Metadata Types
       And the change set can be deployed correctly
 
     Examples:
-      | parent       | child       | content                                     | expected                                          |
-      | CustomObject | CustomField | data/complex-metadata/customField-removed   | data/complex-metadata/customField-removed/expected   |
+      | parent       | child       | content                                | expected                                        |
+      | CustomObject | CustomField | complex-metadata/customField-removed   | complex-metadata/customField-removed/expected   |
 
   @skipped
   Scenario: Parent metadata are changed

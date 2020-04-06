@@ -65,7 +65,7 @@ class Cli {
     let changeSetPath =  path.join(this._cwd, 'config/deployments/test');
 
     return {
-      expected: this._expectedFolder ? path.join(__dirname, '../', this._expectedFolder) : '',
+      expected: this._expectedFolder ? path.join(__dirname, '../data', this._expectedFolder) : '',
       changeSet: changeSetPath,
       packageXml: path.join(changeSetPath, 'package.xml'),
       forceDevTool: path.resolve(__dirname, '../../bin/cli'),
