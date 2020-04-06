@@ -6,11 +6,11 @@ const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-fs'));
 
-Given('a list of {string} metadata in {string} which has been added and updated in a git repository', function (child, data) {
+Given('a list of {string} metadata in {string} folder which has been added and updated in a git repository', function (child, data) {
   git.addChangeSet(data);
 });
 
-Given('a list of {string} metadata in {string} which has been removed in a git repository', function (child, data) {
+Given('a list of {string} metadata in {string} folder which has been removed in a git repository', function (child, data) {
   git.addChangeSet(data);
 });
 
