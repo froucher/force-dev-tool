@@ -1,26 +1,26 @@
 Feature: Handle Properties of Complex Metadata Types
 
   Scenario Outline: Child metadata are added and/or updated
-    Given a list of child metadata which "<content>" has been added and updated in a git repository
+    Given a list of "<child>" metadata in "<content>" which has been added and updated in a git repository
      When a user launches a change set with force-dev-tool
-     Then it will create "<expected>" change set with the list of "<child>" metadata
+     Then it will create a change set with the list of "<child>" metadata
       And excluding any "<parent>" metadata in the change set
       And the change set can be deployed correctly
 
     Examples:
-      | parent       | child         | content                                | expected                                        |
-      | CustomObject | CustomField   | complex-metadata/customField-added     | complex-metadata/customField-added/expected     |
+      | parent       | child         | content                                |
+      | CustomObject | CustomField   | complex-metadata/customField-added     |
 
   Scenario Outline: Child metadata are removed
-    Given a list of child metadata which "<content>" has been removed in a git repository
+    Given a list of "<child>" metadata in "<content>" which has been removed in a git repository
      When a user launches a change set with force-dev-tool
-     Then it will create "<expected>" destructive change with the list of "<child>" metadata
+     Then it will create a destructive change with the list of "<child>" metadata
       And excluding any "<parent>" metadata in the change set
       And the change set can be deployed correctly
 
     Examples:
-      | parent       | child       | content                                | expected                                        |
-      | CustomObject | CustomField | complex-metadata/customField-removed   | complex-metadata/customField-removed/expected   |
+      | parent       | child       | content                                |
+      | CustomObject | CustomField | complex-metadata/customField-removed   |
 
   @skipped
   Scenario: Parent metadata are changed

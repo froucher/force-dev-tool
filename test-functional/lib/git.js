@@ -4,10 +4,11 @@ const tmp = require('tmp');
 
 class Repository {
   addChangeSet(data) {
+    this._data = path.join(__dirname, '../data', data);
     this.init();
-    this.add(path.join(data, 'v0'));
+    this.add('v0');
     this.commit('First commit');
-    this.add(path.join(data, 'v1'));
+    this.add('v1');
     this.commit('Last commit')
   }
 
@@ -18,7 +19,7 @@ class Repository {
   }
 
   add(testFolder, pathspec = '.') {
-    child.spawnSync('cp', ['-r', path.join(__dirname, '../data', testFolder, 'src'),  this._cwd] );
+    child.spawnSync('cp', ['-r', path.join(this._data, testFolder, 'src'),  this._cwd] );
     return this._execute('git', ['add', pathspec] );
   }
 
@@ -28,6 +29,10 @@ class Repository {
 
   getRepoPath() {
     return this._cwd;
+  }
+
+  getDataPath() {
+    return this._data;
   }
 
   _execute(cmd, args) {
