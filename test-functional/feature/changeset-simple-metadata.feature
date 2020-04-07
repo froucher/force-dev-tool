@@ -10,7 +10,6 @@ Feature: Change Set: Handle Properties of Simple Metadata Types
       | simple        | data                                       |
       | PermissionSet | simple-metadata/permissionSet-changed      |
 
-  @doing @skipped
   Scenario Outline: Simple metadata are added, updated and removed
     Given a list of "<simple>" metadata in "<data>" folder which has been changed in a git repository
      When a user launches a change set with force-dev-tool

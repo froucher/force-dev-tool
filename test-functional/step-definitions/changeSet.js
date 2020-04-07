@@ -51,7 +51,8 @@ Then('it will create a change set with all {string} metadata', function (parent)
 });
 
 Then('the change set could be deployed correctly', function () {
-  forceDevTool.testDeploy();
+  forceDevTool.deployFirstCommit();
+  forceDevTool.deployChangeSet();
 });
 
 Then('it will create a destructive change with the list of removed {string} metadata', function (simple) {
