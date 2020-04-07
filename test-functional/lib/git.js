@@ -1,4 +1,5 @@
 const child = require('child_process');
+const forceDevTool = require('../lib/force-dev-tool')
 const path = require('path');
 const tmp = require('tmp');
 
@@ -8,6 +9,7 @@ class Repository {
     this.init();
     this.add('v0');
     this.commit('First commit');
+    this.rm();
     this.add('v1');
     this.commit('Last commit')
   }
@@ -19,8 +21,12 @@ class Repository {
   }
 
   add(testFolder, pathspec = '.') {
-    child.spawnSync('cp', ['-r', path.join(this._data, testFolder, 'src'),  this._cwd] );
+    child.spawnSync('cp', ['-r', path.join(this._data, testFolder, 'src'),  this._cwd]);
     return this._execute('git', ['add', pathspec] );
+  }
+
+  rm(folder = 'src') {
+    return this._execute('git', ['rm', '-r', folder]);
   }
 
   commit(message = 'no message') {

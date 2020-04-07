@@ -1,16 +1,24 @@
-const { Given, When, Then } = require('cucumber');
+const { Given, When, Then, After } = require('cucumber');
 const forceDevTool = require('../lib/force-dev-tool')
 const git = require('../lib/git');
-const path = require('path');
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-fs'));
+const diff = require('../lib/diff');
 
 Given('a list of {string} metadata in {string} folder which has been added and updated in a git repository', function (child, data) {
   git.addChangeSet(data);
 });
 
 Given('a list of {string} metadata in {string} folder which has been removed in a git repository', function (child, data) {
+  git.addChangeSet(data);
+});
+
+Given('a list of {string} metadata in {string} folder which is not a deployable {string} and has been changed in a git repository', function (parent, data, child) {
+  git.addChangeSet(data);
+});
+
+Given('a list of {string} metadata in {string} folder which has been changed in a git repository', function (simple, data) {
   git.addChangeSet(data);
 });
 
@@ -21,7 +29,7 @@ When('a user launches a change set with force-dev-tool', function () {
 
 Then('it will create a change set with the list of {string} metadata', function (child) {
   let pathOf = forceDevTool.setExpectedFolder(git.getDataPath()).getPathList();
-  expect(pathOf.changeSet).to.be.a.directory().and.equal(pathOf.expected, 'Unexpected changeset');
+  diff.directoryContentEquals(pathOf.changeSet, pathOf.expected);
   expect(pathOf.packageXml).to.be.a.file().with.contents.that.match(new RegExp(`<name>${child}</name>`));
 });
 
@@ -32,11 +40,27 @@ Then('excluding any {string} metadata in the change set', function (parent) {
 
 Then('it will create a destructive change with the list of {string} metadata', function (child) {
   let pathOf = forceDevTool.setExpectedFolder(git.getDataPath()).getPathList();
-  expect(pathOf.changeSet).to.be.a.directory().and.equal(pathOf.expected, 'Unexpected changeset');
+  diff.directoryContentEquals(pathOf.changeSet, pathOf.expected);
   expect(pathOf.destructiveXml).to.be.a.file().with.contents.that.match(new RegExp(`<name>${child}</name>`));
 });
 
-Then('the change set can be deployed correctly', function () {
-  let ret = forceDevTool.testDeploy();
-  expect(ret.stdout.toString()).to.include('Running Validation of directory');
+Then('it will create a change set with all {string} metadata', function (parent) {
+  let pathOf = forceDevTool.setExpectedFolder(git.getDataPath()).getPathList();
+  diff.directoryContentEquals(pathOf.changeSet, pathOf.expected);
+  expect(pathOf.packageXml).to.be.a.file().with.contents.that.match(new RegExp(`<name>${parent}</name>`));
+});
+
+Then('the change set could be deployed correctly', function () {
+  forceDevTool.testDeploy();
+});
+
+Then('it will create a destructive change with the list of removed {string} metadata', function (simple) {
+  let pathOf = forceDevTool.setExpectedFolder(git.getDataPath()).getPathList();
+  expect(pathOf.destructiveXml).to.be.a.file().with.contents.that.match(new RegExp(`<name>${simple}</name>`));
+});
+
+After(function(scenario) {
+  if (scenario.result.status !== 'passed' || scenario.pickle.tags.some(t => t.name === '@doing')) {
+    console.log(`\n    Temporal folder is '${git.getRepoPath()}'`);
+  }
 });

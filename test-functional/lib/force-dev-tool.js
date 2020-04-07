@@ -1,5 +1,6 @@
 const child = require('child_process');
 const path = require('path');
+const expect = require('chai').expect;
 
 class Cli {
   constructor(cwd) {
@@ -41,28 +42,37 @@ class Cli {
           NODE_OPTIONS: process.debugPort ? '' : process.env.NODE_OPTIONS
         })
     });
+    return ret;
   }
 
   testDeploy() {
+    return process.env.TEST_WITH_SFDX ? this.testSfdxDeploy() : this.testFdtDeploy();
+  }
+
+  testSfdxDeploy() {
     let pathOf = this.getPathList();
-    let ret = child.spawnSync(
-      'node', [pathOf.forceDevTool, 'deploy', '-d', pathOf.changeSet, '-c'], {
-        cwd: path.join(__dirname, '..'),
-        env: Object.assign(process.env, {
-          NODE_OPTIONS: process.debugPort ? '' : process.env.NODE_OPTIONS
-        })
-    });
-    if (ret.status !== 0) {
-      throw {
-        'name': 'test deploy error',
-        'description': ret.stderr.toString()
-      }
-    }
+    let ret = child.spawnSync('sfdx', ['force:mdapi:deploy', '-d', '.', '-w', '10', '--json'], {
+        cwd: pathOf.changeSet
+      })
+    let out = JSON.parse(ret.stdout);
+    expect(out.status).equal(0, out.result.details.toString());
+    return out;
+  }
+
+  testFdtDeploy() {
+    let pathOf = this.getPathList();
+    let ret = child.spawnSync('node', [pathOf.forceDevTool, 'deploy', '-d', pathOf.changeSet, '-c'], {
+      cwd: path.join(__dirname, '..'),
+      env: Object.assign(process.env, {
+        NODE_OPTIONS: process.debugPort ? '' : process.env.NODE_OPTIONS
+    })});
+    expect(ret.status).equal(0, ret);
+    expect(ret.stdout.toString()).to.include('Running Validation of directory');
     return ret;
   }
 
   getPathList() {
-    let changeSetPath =  path.join(this._cwd, 'config/deployments/test');
+    let changeSetPath = path.join(this._cwd, 'config/deployments/test');
 
     return {
       expected: this._expectedFolder ? path.join(this._expectedFolder, 'expected') : '',
