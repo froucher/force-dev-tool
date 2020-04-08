@@ -62,7 +62,7 @@ class Cli {
         cwd: folder
       })
     let out = JSON.parse(ret.stdout);
-    expect(out.status).to.equal(0, out.result.details.toString());
+    expect(out.status, JSON.stringify(out.result.details)).to.equal(0);
     return out;
   }
 
@@ -72,7 +72,7 @@ class Cli {
       env: Object.assign(process.env, {
         NODE_OPTIONS: process.debugPort ? '' : process.env.NODE_OPTIONS
     })});
-    expect(ret.status).to.equal(0, ret);
+    expect(ret.status, ret).to.equal(0);
     expect(ret.stdout.toString()).to.include('Running Validation of directory');
     return ret;
   }

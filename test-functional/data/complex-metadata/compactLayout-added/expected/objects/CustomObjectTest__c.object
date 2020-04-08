@@ -161,16 +161,6 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <fields>
-        <fullName>TestField__c</fullName>
-        <externalId>false</externalId>
-        <label>TestField</label>
-        <length>10</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
     <gender>Feminine</gender>
     <label>CustomObjectTest</label>
     <listViews>

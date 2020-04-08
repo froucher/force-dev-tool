@@ -24,15 +24,15 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
 
   @doing @skipped
   Scenario Outline: Parent metadata are added, updated and/or removed
-    Given a list of "<parent>" metadata in "<data>" folder which is not a deployable "<child>" and has been changed in a git repository
+    Given a list of "<parent>" metadata in "<data>" folder which has been changed in a git repository
      When a user launches a change set with force-dev-tool
      Then it will create a change set with all "<parent>" metadata
       And excluding any "<child>" metadata in the change set
       And the change set could be deployed correctly
 
     Examples:
-      | parent       | child       | data                             |
-      | CustomObject | CustomField | complex-metadata/label-updated   |
+      | parent       | child       | data                                   |
+      | CustomObject | CustomField | complex-metadata/CompactLayout-added   |
 
   @todo @skipped
   Scenario: Parent & child metadata are changed

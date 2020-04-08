@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/cucumber-js feature/*.feature --tags 'not @skipped' --require step-definitions/changeSet.js --format node_modules/cucumber-pretty",
-    "debug": "NODE_OPTIONS=--inspect-brk ./node_modules/.bin/cucumber-js feature/*.feature --tags 'not @skipped' --require step-definitions/changeSet.js --format node_modules/cucumber-pretty"
+    "debug": "NODE_OPTIONS=--inspect-brk ./node_modules/.bin/cucumber-js feature/*.feature --tags 'not @skipped' --require step-definitions/changeSet.js --format node_modules/cucumber-pretty",
+    "doing": "./node_modules/.bin/cucumber-js feature/*.feature --tags '@doing' --require step-definitions/changeSet.js --format node_modules/cucumber-pretty"
   },
   "license": "MIT",
   "dependencies": {

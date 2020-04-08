@@ -50,18 +50,23 @@ Then('it will create a change set with all {string} metadata', function (parent)
   expect(pathOf.packageXml).to.be.a.file().with.contents.that.match(new RegExp(`<name>${parent}</name>`));
 });
 
-Then('the change set could be deployed correctly', function () {
-  forceDevTool.deployFirstCommit();
-  forceDevTool.deployChangeSet();
-});
-
 Then('it will create a destructive change with the list of removed {string} metadata', function (simple) {
   let pathOf = forceDevTool.setExpectedFolder(git.getDataPath()).getPathList();
   expect(pathOf.destructiveXml).to.be.a.file().with.contents.that.match(new RegExp(`<name>${simple}</name>`));
 });
 
+Then('the change set could be deployed correctly', function () {
+  forceDevTool.deployFirstCommit();
+  forceDevTool.deployChangeSet();
+});
+
+Then('the change set could not be deployed correctly', function () {
+  forceDevTool.deployFirstCommit();
+  expect(forceDevTool.deployChangeSet()).to.throw(Error);
+});
+
 After(function(scenario) {
   if (scenario.result.status !== 'passed' || scenario.pickle.tags.some(t => t.name === '@doing')) {
-    console.log(`\n    Temporal folder is '${git.getRepoPath()}'`);
+    console.log(`\n    Temporal folder with git is '${git.getRepoPath()}'`);
   }
 });
