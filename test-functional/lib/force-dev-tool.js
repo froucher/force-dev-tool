@@ -46,35 +46,45 @@ class Cli {
   }
 
   deployFirstCommit() {
-    this.deploy(this.getPathList().v0folder);
+    return this.deploy(this.getPathList().v0folder);
   }
 
   deployChangeSet() {
-    this.deploy(this.getPathList().changeSet);
+    return this.deploy(this.getPathList().changeSet);
   }
 
   deploy(folder) {
     return process.env.TEST_WITH_SFDX ? this.sfdxDeploy(folder) : this.fdtDeploy(folder);
   }
 
+  checkDeployFail(spawnRet) {
+    return this.checkDeploy(spawnRet, true);
+  }
+
+  checkDeploy(spawnRet, fail = false) {
+    if (process.env.TEST_WITH_SFDX) {
+      let out = JSON.parse(spawnRet.stdout);
+      expect(out.status, JSON.stringify(out.result.details)).to.equal(fail ? 1 : 0);
+      return out;
+    } else {
+      expect(spawnRet.status, spawnRet).to.equal(fail ? 1 : 0);
+      expect(spawnRet.stdout.toString()).to.include('Running Validation of directory');
+      return spawnRet;
+    }
+  }
+
   sfdxDeploy(folder) {
-    let ret = child.spawnSync('sfdx', ['force:mdapi:deploy', '-d', '.', '-w', '10', '--json'], {
-        cwd: folder
-      })
-    let out = JSON.parse(ret.stdout);
-    expect(out.status, JSON.stringify(out.result.details)).to.equal(0);
-    return out;
+    return child.spawnSync('sfdx', ['force:mdapi:deploy', '-d', '.', '-w', '10', '--json'], {
+      cwd: folder
+    })
   }
 
   fdtDeploy(folder) {
-    let ret = child.spawnSync('node', [this.getPathList().forceDevTool, 'deploy', '-d', folder, '-c'], {
+    return child.spawnSync('node', [this.getPathList().forceDevTool, 'deploy', '-d', folder, '-c'], {
       cwd: path.join(__dirname, '..'),
       env: Object.assign(process.env, {
         NODE_OPTIONS: process.debugPort ? '' : process.env.NODE_OPTIONS
     })});
-    expect(ret.status, ret).to.equal(0);
-    expect(ret.stdout.toString()).to.include('Running Validation of directory');
-    return ret;
   }
 
   getPathList() {

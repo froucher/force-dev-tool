@@ -31,8 +31,9 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       And the change set could be deployed correctly
 
     Examples:
-      | parent       | child       | data                                   |
-      | CustomObject | CustomField | complex-metadata/CompactLayout-added   |
+      | parent       | child       | data                                                |
+      | CustomObject | CustomField | complex-metadata/customObject-compactLayout-added   |
+      | CustomObject | Label       | complex-metadata/customObject-label-updated         |
 
   @todo @skipped
   Scenario: Parent & child metadata are changed

@@ -56,13 +56,13 @@ Then('it will create a destructive change with the list of removed {string} meta
 });
 
 Then('the change set could be deployed correctly', function () {
-  forceDevTool.deployFirstCommit();
-  forceDevTool.deployChangeSet();
+  forceDevTool.checkDeploy(forceDevTool.deployFirstCommit());
+  forceDevTool.checkDeploy(forceDevTool.deployChangeSet());
 });
 
-Then('the change set could not be deployed correctly', function () {
-  forceDevTool.deployFirstCommit();
-  expect(forceDevTool.deployChangeSet()).to.throw(Error);
+Then('the change set must fail when it is deployed', function () {
+  forceDevTool.checkDeploy(forceDevTool.deployFirstCommit());
+  forceDevTool.checkDeployFail(forceDevTool.deployChangeSet());
 });
 
 After(function(scenario) {
