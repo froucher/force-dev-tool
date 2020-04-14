@@ -1,5 +1,13 @@
 # Local Test
 
+Steps:
+
+Create a scratch
+
+```sh
+sfdx force:org:create --definitionfile project-scratch-def.json --setdefaultusername -a scratch
+```
+
 ```sh
 ./node_modules/.bin/cucumber-js feature/complex-metadata-types.feature --tags "not @skipped"
 ```

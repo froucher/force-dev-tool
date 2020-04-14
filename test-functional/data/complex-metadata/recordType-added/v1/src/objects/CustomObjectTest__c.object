@@ -152,6 +152,7 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <label>CustomObjectTest</label>
     <listViews>
         <fullName>All</fullName>
@@ -163,6 +164,12 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>CustomObjectTest</pluralLabel>
+    <recordTypes>
+        <fullName>Record_Type_Test</fullName>
+        <active>true</active>
+        <description>A test for changeSet</description>
+        <label>Record Type Test</label>
+    </recordTypes>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

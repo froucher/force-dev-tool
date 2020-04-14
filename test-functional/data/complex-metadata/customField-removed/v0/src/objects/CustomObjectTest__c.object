@@ -161,7 +161,6 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    <gender>Feminine</gender>
     <label>CustomObjectTest</label>
     <listViews>
         <fullName>All</fullName>
