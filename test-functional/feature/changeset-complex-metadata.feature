@@ -14,11 +14,16 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       | CustomObject | RecordType      | RecordType     | CustomObject   | complex-metadata/recordType-added      |
       | CustomObject | WebLink         | WebLink        | CustomObject   | complex-metadata/weblink-added         |
       | CustomObject | ValidationRule  | ValidationRule | CustomObject   | complex-metadata/validationRule-added  |
-      | CustomObject | FieldSet        | FieldSet       | CustomObject   | complex-metadata/fieldSet-added   |
-     # | CustomObject | ListView        | ListView       | CustomObject   | complex-metadata/listView-added   |
-     # | CustomObject | CompactLayout   | CustomObject   | CompactLayout  | complex-metadata/compactLayout-added   |
-     # | CustomObject | SharingReason   | CustomObject   | SharingReason  | complex-metadata/sharingReason-added   |
+      | CustomObject | FieldSet        | FieldSet       | CustomObject   | complex-metadata/fieldSet-added        |
 
+    @notWorking @skipped
+    Examples:
+      | parent       | child           | changeSetTag   | excludedTag    | data                                   |
+      | CustomObject | ListView        | ListView       | CustomObject   | complex-metadata/listView-added        |
+      | CustomObject | CompactLayout   | CustomObject   | CompactLayout  | complex-metadata/compactLayout-added   |
+      | CustomObject | SharingReason   | CustomObject   | SharingReason  | complex-metadata/sharingReason-added   |
+
+  @doing
   Scenario Outline: Child metadata are removed
     Given a list of "<child>" metadata in "<data>" folder which has been removed in a git repository
      When a user launches a change set with force-dev-tool
@@ -27,8 +32,12 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       And the change set could be deployed correctly
 
     Examples:
-      | parent       | child       | data                                   |
-      | CustomObject | CustomField | complex-metadata/customField-removed   |
+      | parent       | child         | data                                   |
+      | CustomObject | CustomField   | complex-metadata/customField-removed   |
+
+    @notWorking @skipped
+    Examples:
+      | CustomObject | CompactLayout | complex-metadata/compactLayout-removed |
 
   @doing @skipped
   Scenario Outline: Parent metadata are added, updated and/or removed
