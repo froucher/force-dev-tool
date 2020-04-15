@@ -32,12 +32,21 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       And the change set could be deployed correctly
 
     Examples:
-      | parent       | child         | data                                   |
-      | CustomObject | CustomField   | complex-metadata/customField-removed   |
+      | parent       | child           | data                                     |
+      | CustomObject | CustomField     | complex-metadata/customField-removed     |
+      | CustomObject | WebLink         | complex-metadata/weblink-removed         |
+      | CustomObject | ValidationRule  | complex-metadata/validationRule-removed  |
+      | CustomObject | FieldSet        | complex-metadata/fieldSet-removed        |
+      | CustomObject | ListView        | complex-metadata/listView-removed        |
+      | CustomObject | CompactLayout   | complex-metadata/compactLayout-removed   |
 
     @notWorking @skipped
     Examples:
-      | CustomObject | CompactLayout | complex-metadata/compactLayout-removed |
+      | parent       | child           | data                                     | error                                  |
+      | CustomObject | BusinessProcess | complex-metadata/businessProcess-removed | destructiveChanges.xml is not created  |
+      | CustomObject | RecordType      | complex-metadata/recordType-removed      | Cannot delete record type through API: https://developer.salesforce.com/forums/#!/feedtype=SINGLE_QUESTION_DETAIL&dc=Developer_Forums&criteria=ALLQUESTIONS&id=906F0000000AeeVIAS |
+      | CustomObject | CompactLayout   | complex-metadata/compactLayout-removed   | destructiveChanges.xml is not created  |
+      | CustomObject | SharingReason   | complex-metadata/sharingReason-removed   | destructiveChanges.xml is not created  |
 
   @doing @skipped
   Scenario Outline: Parent metadata are added, updated and/or removed

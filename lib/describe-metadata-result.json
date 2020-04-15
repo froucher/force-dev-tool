@@ -106,6 +106,7 @@
 		"childXmlNames": [
 			"CustomField",
 			"BusinessProcess",
+			"CompactLayout",
 			"RecordType",
 			"WebLink",
 			"ValidationRule",

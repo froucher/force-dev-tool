@@ -142,14 +142,6 @@
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <compactLayouts>
-        <fullName>compactLayoutTest</fullName>
-        <fields>CreatedById</fields>
-        <fields>Name</fields>
-        <fields>LastModifiedById</fields>
-        <fields>OwnerId</fields>
-        <label>compactLayoutTest</label>
-    </compactLayouts>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
@@ -160,6 +152,7 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <label>CustomObjectTest</label>
     <nameField>
         <label>CustomObjectTest Name</label>

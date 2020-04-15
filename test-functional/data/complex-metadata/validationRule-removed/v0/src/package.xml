@@ -4,9 +4,5 @@
         <name>CustomObject</name>
         <members>CustomObjectTest__c</members>
     </types>
-    <types>
-        <name>CompactLayout</name>
-        <members>CustomObjectTest__c.compactLayoutTest</members>
-    </types>
     <version>46.0</version>
 </Package>
