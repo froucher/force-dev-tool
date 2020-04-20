@@ -22,7 +22,6 @@ Feature: Change Set: Handle Properties of Simple Metadata Types
       | simple        | data                                       |
       | PermissionSet | simple-metadata/permissionSet-list-changed |
 
-  @doing
   Scenario Outline: Invalid metadata are added
     Given a list of "<simple>" metadata in "<data>" folder which has been changed in a git repository
      When a user launches a change set with force-dev-tool

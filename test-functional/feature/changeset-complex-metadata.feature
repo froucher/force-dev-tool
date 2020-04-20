@@ -7,6 +7,11 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       And excluding any "<excludedTag>" metadata in the change set
       And the change set could be deployed correctly
 
+    @doing
+    Examples:
+      | parent       | child           | changeSetTag   | excludedTag    | data                                   |
+      | CustomObject | CustomField     | CustomField    | CustomObject   | complex-metadata/customField-added     |
+
     Examples:
       | parent       | child           | changeSetTag   | excludedTag    | data                                   |
       | CustomObject | CustomField     | CustomField    | CustomObject   | complex-metadata/customField-added     |
@@ -23,7 +28,6 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       | CustomObject | CompactLayout   | CustomObject   | CompactLayout  | complex-metadata/compactLayout-added   |
       | CustomObject | SharingReason   | CustomObject   | SharingReason  | complex-metadata/sharingReason-added   |
 
-  @doing
   Scenario Outline: Child metadata are removed
     Given a list of "<child>" metadata in "<data>" folder which has been removed in a git repository
      When a user launches a change set with force-dev-tool
@@ -38,7 +42,6 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
       | CustomObject | ValidationRule  | complex-metadata/validationRule-removed  |
       | CustomObject | FieldSet        | complex-metadata/fieldSet-removed        |
       | CustomObject | ListView        | complex-metadata/listView-removed        |
-      | CustomObject | CompactLayout   | complex-metadata/compactLayout-removed   |
 
     @notWorking @skipped
     Examples:
@@ -58,8 +61,8 @@ Feature: Change Set: Handle Properties of Complex Metadata Types
 
     Examples:
       | parent       | child       | data                                   |
-      | CustomObject | CustomField | complex-metadata/compactLayout-added   |
-    # | CustomObject | CustomField | complex-metadata/label-updated         |
+      | CustomObject | CustomField | complex-metadata/label-updated         |
+    # | CustomObject | CustomField | complex-metadata/compactLayout-added   |
 
   @todo @skipped
   Scenario: Parent & child metadata are changed
